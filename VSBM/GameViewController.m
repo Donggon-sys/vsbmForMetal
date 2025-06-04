@@ -45,7 +45,7 @@
     id <MTLBuffer> _indexBuffer;
     id <MTLRenderPipelineState> RenderPSO;
     id <MTLCommandQueue> CommandQueue;
-    Fragmentoptions fragmentOptions;
+//    Fragmentoptions fragmentOptions;
     Vertexoptions vertexOptions;
     viewportSize viewport;
 }
@@ -59,7 +59,7 @@ Date input[] = {
 
 uint16_t indexForTriangle[] = {
     0, 1, 2,
-    1, 3, 2
+    2, 3, 0
 };
 
 - (void)viewDidLoad
@@ -162,11 +162,12 @@ uint16_t indexForTriangle[] = {
     if (renderPassDescriptor != nil) {
         id<MTLRenderCommandEncoder> renderEncode  = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         
-        [renderEncode setViewport:(MTLViewport){0.0, 0.0, 1024.0, 1024.0, 0.0, 1.0}];
+        [renderEncode setViewport:(MTLViewport){0.0, 0.0, cx, cy, 0.0, 1.0}];
         [self completeVar];
         [renderEncode setVertexBytes:input length:sizeof(input) atIndex:indexIn];
         [renderEncode setVertexBytes:&vertexOptions length:sizeof(vertexOptions) atIndex:indexVertexOptions];
         [renderEncode setVertexBytes:&viewport length:sizeof(viewport) atIndex:indexViewportSize];
+        
         [renderEncode setFragmentBytes:&len length:sizeof(len) atIndex:indexLen];
         
         [renderEncode setRenderPipelineState:RenderPSO];
@@ -183,25 +184,25 @@ uint16_t indexForTriangle[] = {
     viewport.y = cy * 2.0 / (cx + cy);
     
     //len就不设置了
-    fragmentOptions.origin.x = len * cos(ang1) * cos(ang2) + cenx;
-    fragmentOptions.origin.y = len * sin(ang2) + ceny;
-    fragmentOptions.origin.z = len * sin(ang1) * cos(ang2) + cenz;
-    vertexOptions.origin = fragmentOptions.origin;
+    vertexOptions.origin.x = len * cos(ang1) * cos(ang2) + cenx;
+    vertexOptions.origin.y = len * sin(ang2) + ceny;
+    vertexOptions.origin.z = len * sin(ang1) * cos(ang2) + cenz;
+//    vertexOptions.origin = fragmentOptions.origin;
     
-    fragmentOptions.right.x = sin(ang1);
-    fragmentOptions.right.y = 0.0f;
-    fragmentOptions.right.z = -cos(ang1);
-    vertexOptions.right = fragmentOptions.right;
+    vertexOptions.right.x = sin(ang1);
+    vertexOptions.right.y = 0.0f;
+    vertexOptions.right.z = -cos(ang1);
+//    vertexOptions.right = fragmentOptions.right;
     
-    fragmentOptions.up.x = -sin(ang2) * cos(ang1);
-    fragmentOptions.up.y = cos(ang2);
-    fragmentOptions.up.z = -sin(ang2) * sin(ang1);
-    vertexOptions.up = fragmentOptions.up;
+    vertexOptions.up.x = -sin(ang2) * cos(ang1);
+    vertexOptions.up.y = cos(ang2);
+    vertexOptions.up.z = -sin(ang2) * sin(ang1);
+//    vertexOptions.up = fragmentOptions.up;
     
-    fragmentOptions.forward.x = -cos(ang1) * cos(ang2);
-    fragmentOptions.forward.y = sin(ang2);
-    fragmentOptions.forward.z = -sin(ang1) * cos(ang2);
-    vertexOptions.forward = fragmentOptions.forward;
+    vertexOptions.forward.x = -cos(ang1) * cos(ang2);
+    vertexOptions.forward.y = sin(ang2);
+    vertexOptions.forward.z = -sin(ang1) * cos(ang2);
+//    vertexOptions.forward = fragmentOptions.forward;
     
 //    vertexOptions. = fragmentOptions;
     
