@@ -20,9 +20,7 @@ typedef struct {
     float3 dir, localdir;
 }DateOut;
 
-//typedef struct {
-//    float3 right, forward, up, origin;
-//}options;
+
 
 float kernal(float3 ver);
 
@@ -31,7 +29,7 @@ fragment float4 CSFragmentShader(DateOut In[[stage_in]],
     float3 ver, n, reflect_n, color;
     int sign;
     float v, v1, v2;
-    float r1, r2, r3, r4, m1, m2, m3;//修改m4
+    float r1, r2, r3, r4, m1, m2, m3;
     const float step = 0.002;
     
     color.r = 0.0;

@@ -13,8 +13,5 @@
 // Our macOS view controller.
 @interface GameViewController : NSViewController <MTKViewDelegate>
 
--(void)mouseDown:(NSEvent *)event;
--(void)rightMouseDown:(NSEvent *)event;
--(void)mouseUp:(NSEvent *)event;
 
 @end
