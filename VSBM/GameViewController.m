@@ -82,15 +82,28 @@ uint16_t indexForTriangle[] = {
 
 
 -(void)rightMouseDragged:(NSEvent *)event{
+    CGFloat deltaX = [event deltaX];
+    CGFloat deltaY = [event deltaY];
+    
     float l = len * 4.0 / (cx + cy);
-    cenx += l * (-([event locationInWindow].x - mx) * sin(ang1) - ([event locationInWindow].y - my) * sin(ang2) * cos(ang1));
-    ceny += l * (([event locationInWindow].y - my) * cos(ang2));
-    cenz += l * (([event locationInWindow].x - mx) * cos(ang1) - ([event locationInWindow].y - my) * sin(ang2) * sin(ang1));
+//    cenx += l * (-([event locationInWindow].x - mx) * sin(ang1) - ([event locationInWindow].y - my) * sin(ang2) * cos(ang1));
+//    ceny += l * (([event locationInWindow].y - my) * cos(ang2));
+//    cenz += l * (([event locationInWindow].x - mx) * cos(ang1) - ([event locationInWindow].y - my) * sin(ang2) * sin(ang1));
+    
+    cenx += l * ((deltaX) * sin(ang1) - (deltaY) * sin(ang2) * cos(ang1));
+    ceny += l * ((deltaY) * cos(ang2));
+    cenz += l * ((deltaX) * cos(ang1) - (deltaY) * sin(ang2) * sin(ang1));
+    
 }
 
 -(void)mouseDragged:(NSEvent *)event{
-        ang1 += ([event locationInWindow].x - mx) * 0.002;
-        ang2 += ([event locationInWindow].y - my) * 0.002;
+    CGFloat deltaX = [event deltaX];
+    CGFloat deltaY = [event deltaY];
+    
+//    ang1 += ([event locationInWindow].x - mx) * 0.002;
+//    ang2 += ([event locationInWindow].y - my) * 0.002;
+    ang1 += (deltaX) * 0.002;
+    ang2 += (deltaY) * 0.002;
 }
 
 -(void)scrollWheel:(NSEvent *)event{
